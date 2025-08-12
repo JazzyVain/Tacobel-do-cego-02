@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rewards – Tacobel do Cego</title>
+    <link rel="stylesheet" href="/Tacobel-do-cego-02/pages/css/style.css" />
+         <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">Taco<span>bel</span> do <span>Cego</span></div>
+      <p><span>Viva mais</span></p>
+    </header>
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+    <nav id="mainNav">
+      <a href="Home.html">Home</a>
+      <a href="location.html">Locations</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <section class="page-content">
+      <h2>Rewards Program</h2>
+      <p class="subtitle">Como funciona:</p>
+      <ul class="rewards-list">
+        <li>Ganhe 1 ponto para cada R$1 gasto.</li>
+        <li>
+          Acumule 50 pontos e ganhe um
+          <strong>Crunchwrap Supreme grátis</strong>.
+        </li>
+        <li>
+          Acumule 100 pontos e ganhe um combo completo — escolha entre Nacho
+          Fries ou Cinnamon Twists + bebida. 
+        </li>
+        <br>
+      </ul>
+      <p class="subtitle">Benefícios exclusivos:</p>
+      <ul>
+        <li>Ofertas semanais personalizadas via app.</li>
+        <li>Bônus de 20 pontos no aniversário.</li>
+        <li>Upgrade gratuito na sua terceira compra no mês.</li>
+      </ul>
+      <p>Junte-se hoje e <strong>Viva Mais</strong> com a gente!</p>
+    </section>
+
+    <footer id="contact">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <p class="footer">&copy; 2023 TacoBell. All rights reserved.</p>
+      <p class="footer">Viva mais</p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("menuToggle")
+        .addEventListener("click", function () {
+          document.getElementById("mainNav").classList.toggle("active");
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuItems = document.querySelectorAll(".menu-item");
+
+        menuItems.forEach((item, index) => {
+          item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+    </script>
+  </body>
+</html>
