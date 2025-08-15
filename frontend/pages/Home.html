@@ -24,7 +24,12 @@
       <a href="about.html">About</a>
       <a href="login.html">Login</a>
       <a href="#contact">Contact</a>
-      
+      <a href="#" id="cartBtn"
+        ><img
+          class="scart"
+          src="../imagens/shop-cart-svgrepo-com (1).svg"
+          alt="cart"
+      /></a>
     </nav>
 
     <section class="hero">
@@ -39,7 +44,7 @@
       <h2>Nosso Menu</h2>
       <div class="menu-items">
         <div class="menu-item">
-          <img src="/frontend/imagens/food1.jpg" alt="Crunchwrap Supreme" />
+          <img class="itemimg" src="/frontend/imagens/food1.jpg" alt="Crunchwrap Supreme" />
           <div class="item-info">
             <h3>Crunchwrap Supreme</h3>
             <p>
@@ -49,11 +54,16 @@
               de gordura.
             </p>
             <div class="price">$3.99</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="menu-item">
-          <img src="/frontend/imagens/food2.jpg" alt="Chalupa" />
+          <img class="itemimg" src="/frontend/imagens/food2.jpg" alt="Chalupa" />
           <div class="item-info">
             <h3>Chalupa Supreme</h3>
             <p>
@@ -62,11 +72,26 @@
               fresco com baixo teor de gordura.
             </p>
             <div class="price">$2.99</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="cartPanel">
+          <div class="cart-header">
+            <h2 class="cart">Seu Carrinho</h2>
+            <button id="closeCart">&times;</button>
+          </div>
+          <div class="cart-content">
+            <p>Seu carrinho está vazio.</p>
           </div>
         </div>
 
         <div class="menu-item">
-          <img src="/frontend/imagens/food3.webp" alt="Nacho Fries" />
+          <img class="itemimg" src="/frontend/imagens/food3.webp" alt="Nacho Fries" />
           <div class="item-info">
             <h3>Nacho Fries</h3>
             <p>
@@ -74,11 +99,16 @@
               quente e servidas com um acompanhamento de molho ranch picante
             </p>
             <div class="price">$1.99</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="menu-item">
-          <img src="/frontend/imagens/food4.jpg" alt="Quesarito" />
+          <img class="itemimg" src="/frontend/imagens/food4.jpg" alt="Quesarito" />
           <div class="item-info">
             <h3>Quesarito</h3>
             <p>
@@ -87,12 +117,18 @@
               queijo nacho e envolto em uma quesadilla.
             </p>
             <div class="price">$3.49</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="menu-item">
           <img
-            src="/frontend/imagens/food5.png"
+            class="itemimg"
+            src="/frontend/imagens/food15.jpg"
             alt="Baja Blast"
             style="width: auto"
           />
@@ -103,15 +139,25 @@
               granizado congelado.
             </p>
             <div class="price">$2.49</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="menu-item">
-          <img src="/frontend/imagens/food6.jpg" alt="Cinnamon Twists" />
+          <img class="itemimg" src="/frontend/imagens/food6.jpg" alt="Cinnamon Twists" />
           <div class="item-info">
             <h3>Cinnamon Twists</h3>
             <p>Torcidas leves e crocantes cobertas com açúcar e canela</p>
             <div class="price">$1.49</div>
+            <div id="addcart">
+              <button class="add-butão" onclick="add()">
+                Adicionar no carrinho
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -127,8 +173,6 @@
       <p class="footer">&copy; 2023 TacoBell. All rights reserved.</p>
       <p class="footer">Viva mais</p>
     </footer>
-
-
 
     <script>
       document
@@ -148,7 +192,8 @@
       const heroTexts = [
         {
           title: "New Crunchwrap Supreme",
-          subtitle: "Experimente nossa mais nova adição ao menu - repleta de sabor!",
+          subtitle:
+            "Experimente nossa mais nova adição ao menu - repleta de sabor!",
         },
         {
           title: "$10.000 Nacho Fries",
@@ -171,29 +216,75 @@
       }
 
       setInterval(changeHeroText, 5000);
-    </script>
 
-        <script>
-      function sobre() {
-        const sobre = document.getElementById("1");
-        if (sobre.style.display === "none" || !sobre.style.display) {
-          sobre.style.display = "block";
-        } else {
-          sobre.style.display = "none";
+      document
+        .getElementById("cartBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("cartPanel").classList.add("active");
+        });
+
+      document
+        .getElementById("closeCart")
+        .addEventListener("click", function () {
+          document.getElementById("cartPanel").classList.remove("active");
+        });
+
+      function add() {
+        const cartContent = document.querySelector("#cartPanel .cart-content");
+        const btn = event.target;
+        const item = btn.closest(".menu-item");
+        const name = item.querySelector("h3").textContent;
+        const price = item.querySelector(".price").textContent;
+        const imgSrc = item.querySelector("img").src;
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+            <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
+            <span>${name}</span>
+            <span style="margin-left:auto;">${price}</span>
+          `;
+        if (cartContent.textContent.includes("carrinho está vazio")) {
+          cartContent.innerHTML = "";
         }
+        cartContent.appendChild(cartItem);
       }
-      function contato() {
-        const contato = document.getElementById("2");
-        if (contato.style.display === "none" || !contato.style.display) {
-          contato.style.display = "block";
-        } else {
-          contato.style.display = "none";
+
+      document
+        .querySelector("#cartPanel .cart-content")
+        .addEventListener("click", function (e) {
+          if (e.target.classList.contains("remove-cart-item")) {
+            const cartItem = e.target.closest(".cart-item");
+            cartItem.remove();
+            const cartContent = document.querySelector(
+              "#cartPanel .cart-content"
+            );
+            if (cartContent.children.length === 0) {
+              cartContent.innerHTML = "<p>Seu carrinho está vazio.</p>";
+            }
+          }
+        });
+      const originalAdd = add;
+      add = function () {
+        const cartContent = document.querySelector("#cartPanel .cart-content");
+        const btn = event.target;
+        const item = btn.closest(".menu-item");
+        const name = item.querySelector("h3").textContent;
+        const price = item.querySelector(".price").textContent;
+        const imgSrc = item.querySelector("img").src;
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+            <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
+            <span>${name}</span>
+            <span style="margin-left:auto;">${price}</span>
+            <button class="remove-cart-item" style="margin-left:10px;">Remover</button>
+          `;
+        if (cartContent.textContent.includes("carrinho está vazio")) {
+          cartContent.innerHTML = "";
         }
-      }
-      function Projetos() {
-        const aba = document.getElementById("abaProjetos");
-        aba.classList.toggle("ativa");
-      }
-    </script>    
+        cartContent.appendChild(cartItem);
+      };
+    </script>
   </body>
 </html>

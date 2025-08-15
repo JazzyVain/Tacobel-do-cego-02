@@ -74,7 +74,7 @@ nav a:hover {
   position: relative;
 }
 
-body{
+body {
   background-color: rgb(252, 249, 231);
 }
 
@@ -91,7 +91,7 @@ body{
 .hero-content {
   position: relative;
   z-index: 1;
-  
+
 }
 
 .hero h1 {
@@ -143,6 +143,7 @@ body{
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  
 }
 
 .menu-item:hover {
@@ -157,7 +158,6 @@ body{
 
 .item-info {
   padding: 1.5rem;
-  cursor: pointer;
 }
 
 .item-info h3 {
@@ -225,6 +225,11 @@ body {
     flex-direction: column;
     align-items: center;
     display: none;
+  }
+
+  img.itemimg{
+    width: auto;
+    height: 400px;
   }
 
   nav.active {
@@ -306,7 +311,7 @@ body.pagerro {
   align-items: center;
   height: 100vh;
   text-align: center;
-  background-image: linear-gradient(to top, rgb(241, 235, 199), rgb(241, 238, 204) );
+  background-image: linear-gradient(to top, rgb(241, 235, 199), rgb(241, 238, 204));
 
 }
 
@@ -337,26 +342,13 @@ label {
   display: grid;
   height: 30px;
   font-weight: bold;
-  font-size: 22px; 
+  font-size: 22px;
   margin-top: 20px;
 }
 
-input{
+input {
   width: 300px;
   height: 25px;
-}
-
-button {
-  margin-top: 15px;
-  background-image: linear-gradient(to top, #702082, #e10f8b);
-  border: none;
-  border-radius: 10px;
-  width: 120px; 
-  height: 25px; 
-  font-size: 15px; 
-  font-style: italic;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .button {
@@ -364,18 +356,19 @@ button {
   margin-top: 15px;
   background-image: linear-gradient(to top, #702082, #e10f8b);
   border-radius: 10px;
-  width: 120px; 
+  width: 140px;
   height: 25px;
   text-align: center;
-  font-size: 15px; 
+  font-size: 15px;
   font-style: italic;
   font-weight: bold;
   cursor: pointer;
   color: black;
   text-decoration: none;
+  border: solid black;
 }
 
-img.loca{
+img.loca {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,19 +379,106 @@ img.loca{
   opacity: 25%;
 }
 
-.abaProjetos {
-    position: fixed;
-    right: -400px;
-    width: 300px;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
-    color: white;
-    border-left: 1px solid white;
-    transition: right 0.4s ease;
-    padding: 20px;
-    z-index: 2;
+#cartPanel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.abaProjetos.ativa {
-    right: 0;
+#cartPanel.active {
+  right: 0;
 }
+
+.cart-header {
+  background: linear-gradient(to right, var(--purple), var(--magenta));
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h2 {
+  margin: 0;
+}
+
+#closeCart {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.cart-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+ 
+}
+
+h2.cart {
+  color: black;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.scart{
+  width: 25px;
+  display: flex;
+  height: 20px;
+}
+
+.cart-item{
+  display: flex;
+  align-items: baseline;
+  justify-content: baseline;
+}
+
+.add-butão{
+  display: inline-block;
+  background-color: var(--yellow);
+  color: var(--dark);
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+  
+}
+
+.add-butão:hover {
+  background-color: white;
+  transform: scale(1.05);
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+}
+
+.item-info p {
+  flex-grow: 1; 
+}
+
+.add-butão {
+  align-self: center;
+  margin-top: auto;
+}
+
