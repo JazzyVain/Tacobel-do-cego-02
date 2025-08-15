@@ -12,19 +12,24 @@
 
       async function fetchData() {
         try {
-          const response = await fetch("http://localhost:3001/api/response", {
+          const response = await fetch("http://172.17.9.34:3000/api/response", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
           });
 
-          const data = await response.json();
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
 
+          const data = await response.json();
           texto.textContent = data.mensagem;
-        } catch (error) {
-          console.error("Erro ao buscar a API:", error);
+        } catch (err) {
+          console.error("Falha no fetch:", err);
           texto.textContent = "Erro ao carregar o conteúdo.";
         }
       }
-
       fetchData();
     </script>
   </body>
