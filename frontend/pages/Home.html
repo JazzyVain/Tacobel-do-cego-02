@@ -44,7 +44,11 @@
       <h2>Nosso Menu</h2>
       <div class="menu-items">
         <div class="menu-item">
-          <img class="itemimg" src="/frontend/imagens/food1.jpg" alt="Crunchwrap Supreme" />
+          <img
+            class="itemimg"
+            src="/frontend/imagens/food1.jpg"
+            alt="Crunchwrap Supreme"
+          />
           <div class="item-info">
             <h3>Crunchwrap Supreme</h3>
             <p>
@@ -63,7 +67,11 @@
         </div>
 
         <div class="menu-item">
-          <img class="itemimg" src="/frontend/imagens/food2.jpg" alt="Chalupa" />
+          <img
+            class="itemimg"
+            src="/frontend/imagens/food2.jpg"
+            alt="Chalupa"
+          />
           <div class="item-info">
             <h3>Chalupa Supreme</h3>
             <p>
@@ -92,7 +100,11 @@
         </div>
 
         <div class="menu-item">
-          <img class="itemimg" src="/frontend/imagens/food3.webp" alt="Nacho Fries" />
+          <img
+            class="itemimg"
+            src="/frontend/imagens/food3.webp"
+            alt="Nacho Fries"
+          />
           <div class="item-info">
             <h3>Nacho Fries</h3>
             <p>
@@ -109,7 +121,11 @@
         </div>
 
         <div class="menu-item">
-          <img class="itemimg" src="/frontend/imagens/food4.jpg" alt="Quesarito" />
+          <img
+            class="itemimg"
+            src="/frontend/imagens/food4.jpg"
+            alt="Quesarito"
+          />
           <div class="item-info">
             <h3>Quesarito</h3>
             <p>
@@ -149,7 +165,11 @@
         </div>
 
         <div class="menu-item">
-          <img class="itemimg" src="/frontend/imagens/food6.jpg" alt="Cinnamon Twists" />
+          <img
+            class="itemimg"
+            src="/frontend/imagens/food6.jpg"
+            alt="Cinnamon Twists"
+          />
           <div class="item-info">
             <h3>Cinnamon Twists</h3>
             <p>Torcidas leves e crocantes cobertas com açúcar e canela</p>
@@ -231,42 +251,33 @@
           document.getElementById("cartPanel").classList.remove("active");
         });
 
-      function add() {
+      function updateTotal() {
         const cartContent = document.querySelector("#cartPanel .cart-content");
-        const btn = event.target;
-        const item = btn.closest(".menu-item");
-        const name = item.querySelector("h3").textContent;
-        const price = item.querySelector(".price").textContent;
-        const imgSrc = item.querySelector("img").src;
-        const cartItem = document.createElement("div");
-        cartItem.className = "cart-item";
-        cartItem.innerHTML = `
-            <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
-            <span>${name}</span>
-            <span style="margin-left:auto;">${price}</span>
-          `;
-        if (cartContent.textContent.includes("carrinho está vazio")) {
-          cartContent.innerHTML = "";
+        const items = cartContent.querySelectorAll(".cart-item");
+        let total = 0;
+
+        items.forEach((item) => {
+          const priceText = item.querySelector("span:nth-child(3)").textContent;
+          const price = parseFloat(priceText.replace("$", ""));
+          total += price;
+        });
+
+        let totalElement = document.querySelector("#cart-total");
+        if (!totalElement) {
+          totalElement = document.createElement("div");
+          totalElement.id = "cart-total";
+          totalElement.style.fontWeight = "bold";
+          totalElement.style.marginTop = "10px";
+          cartContent.parentElement.insertBefore(
+            totalElement,
+            cartContent.nextSibling
+          );
         }
-        cartContent.appendChild(cartItem);
+
+        totalElement.textContent = `Total: $${total.toFixed(2)}`;
       }
 
-      document
-        .querySelector("#cartPanel .cart-content")
-        .addEventListener("click", function (e) {
-          if (e.target.classList.contains("remove-cart-item")) {
-            const cartItem = e.target.closest(".cart-item");
-            cartItem.remove();
-            const cartContent = document.querySelector(
-              "#cartPanel .cart-content"
-            );
-            if (cartContent.children.length === 0) {
-              cartContent.innerHTML = "<p>Seu carrinho está vazio.</p>";
-            }
-          }
-        });
-      const originalAdd = add;
-      add = function () {
+      function add() {
         const cartContent = document.querySelector("#cartPanel .cart-content");
         const btn = event.target;
         const item = btn.closest(".menu-item");
@@ -285,7 +296,91 @@
           cartContent.innerHTML = "";
         }
         cartContent.appendChild(cartItem);
+
+        updateTotal();
+      }
+
+      document
+        .querySelector("#cartPanel .cart-content")
+        .addEventListener("click", function (e) {
+          if (e.target.classList.contains("remove-cart-item")) {
+            const cartItem = e.target.closest(".cart-item");
+            cartItem.remove();
+            const cartContent = document.querySelector(
+              "#cartPanel .cart-content"
+            );
+            if (cartContent.children.length === 0) {
+              cartContent.innerHTML = "<p>Seu carrinho está vazio.</p>";
+            }
+            updateTotal();
+          }
+        });
+
+      function updateTotal() {
+        const cartContent = document.querySelector("#cartPanel .cart-content");
+        const items = cartContent.querySelectorAll(".cart-item");
+        let total = 0;
+
+        items.forEach((item) => {
+          const priceText = item.querySelector("span:nth-child(3)").textContent;
+          const price = parseFloat(priceText.replace("$", ""));
+          total += price;
+        });
+
+        let totalElement = document.querySelector("#cart-total");
+        if (!totalElement) {
+          totalElement = document.createElement("div");
+          totalElement.id = "cart-total";
+          totalElement.style.fontWeight = "bold";
+          totalElement.style.marginTop = "10px";
+          cartContent.parentElement.insertBefore(
+            totalElement,
+            cartContent.nextSibling
+          );
+        }
+
+        totalElement.textContent = `Total: $${total.toFixed(2)}`;
+      }
+
+      const originalAdd = add;
+      add = function () {
+        const cartContent = document.querySelector("#cartPanel .cart-content");
+        const btn = event.target;
+        const item = btn.closest(".menu-item");
+        const name = item.querySelector("h3").textContent;
+        const price = item.querySelector(".price").textContent;
+        const imgSrc = item.querySelector("img").src;
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+        <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
+        <span>${name}</span>
+        <span style="margin-left:auto;">${price}</span>
+        <button class="remove-cart-item" style="margin-left:10px;">Remover</button>
+      `;
+        if (cartContent.textContent.includes("carrinho está vazio")) {
+          cartContent.innerHTML = "";
+        }
+        cartContent.appendChild(cartItem);
+
+        updateTotal();
       };
+
+      document
+        .querySelector("#cartPanel .cart-content")
+        .addEventListener("click", function (e) {
+          if (e.target.classList.contains("remove-cart-item")) {
+            const cartItem = e.target.closest(".cart-item");
+            cartItem.remove();
+            const cartContent = document.querySelector(
+              "#cartPanel .cart-content"
+            );
+            if (cartContent.children.length === 0) {
+              cartContent.innerHTML = "<p>Seu carrinho está vazio.</p>";
+            }
+            updateTotal();
+          }
+        });
     </script>
   </body>
 </html>

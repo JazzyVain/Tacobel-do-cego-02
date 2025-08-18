@@ -143,7 +143,7 @@ body {
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  
+
 }
 
 .menu-item:hover {
@@ -227,7 +227,7 @@ body {
     display: none;
   }
 
-  img.itemimg{
+  img.itemimg {
     width: auto;
     height: 400px;
   }
@@ -337,7 +337,6 @@ h1.cadastro {
   font-size: 40px;
 }
 
-
 label {
   display: grid;
   height: 30px;
@@ -422,7 +421,7 @@ img.loca {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
- 
+
 }
 
 h2.cart {
@@ -431,19 +430,19 @@ h2.cart {
   font-weight: bold;
 }
 
-.scart{
+.scart {
   width: 25px;
   display: flex;
   height: 20px;
 }
 
-.cart-item{
+.cart-item {
   display: flex;
   align-items: baseline;
   justify-content: baseline;
 }
 
-.add-butão{
+.add-butão {
   display: inline-block;
   background-color: var(--yellow);
   color: var(--dark);
@@ -469,11 +468,11 @@ h2.cart {
 .item-info {
   display: flex;
   flex-direction: column;
-  flex: 1; 
+  flex: 1;
 }
 
 .item-info p {
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .add-butão {
@@ -499,7 +498,7 @@ button.compra {
   background-color: white;
 }
 
-.remove-cart-item{
+.remove-cart-item {
   display: inline-block;
   background-color: var(--yellow);
   color: var(--dark);
@@ -510,6 +509,6 @@ button.compra {
   border: none;
   background-color: #ff0000;
   color: white;
-  padding: 5px;
+  padding: 5pxpx;
   border-radius: 40px;
 }
