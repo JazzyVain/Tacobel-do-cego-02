@@ -57,7 +57,7 @@
               tomates maduros e coberta com creme de leite fresco com baixo teor
               de gordura.
             </p>
-            <div class="price">$3.99</div>
+            <p id="crunchwrap-price" class="price">texto</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -196,6 +196,33 @@
     </footer>
 
     <script>
+      const crunchwrap_price = document.getElementById("crunchwrap-price");
+
+      async function fetchData() {
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/crunchwrap",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          crunchwrap_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
+        }
+      }
+      fetchData();
+
       document
         .getElementById("menuToggle")
         .addEventListener("click", function () {
@@ -213,6 +240,8 @@
       const heroTexts = [
         {
           title: "New Crunchwrap Supreme",
+          subtitle:
+            "Experimente nossa mais nova adição ao menu - repleta de sabor!",
           subtitle:
             "Experimente nossa mais nova adição ao menu - repleta de sabor!",
         },
