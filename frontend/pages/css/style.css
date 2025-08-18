@@ -386,7 +386,7 @@ img.loca {
   width: 350px;
   height: 100%;
   background-color: white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease;
   z-index: 1;
   display: flex;
@@ -453,7 +453,6 @@ h2.cart {
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
-  
 }
 
 .add-butão:hover {
@@ -482,3 +481,20 @@ h2.cart {
   margin-top: auto;
 }
 
+button.compra {
+  display: inline-block;
+  background-color: var(--yellow);
+  color: var(--dark);
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+  border: none;
+  border-top: solid gray 2px;
+  width: auto;
+}
+
+.compra:hover {
+  background-color: white;
+}
