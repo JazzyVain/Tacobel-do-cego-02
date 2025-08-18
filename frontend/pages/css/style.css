@@ -20,6 +20,7 @@ body {
   background-color: var(--light);
   color: var(--dark);
   text-align: center;
+
 }
 
 header {
@@ -61,7 +62,7 @@ nav a:hover {
 }
 
 .hero {
-  background-image: url("/Tacobel-do-cego-02/imagens/Imagem\ de\ fundo\ 02.png");
+  background-image: url("/frontend/imagens/Imagem\ de\ fundo\ 02.png");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -71,6 +72,10 @@ nav a:hover {
   text-align: center;
   color: white;
   position: relative;
+}
+
+body{
+  background-color: rgb(252, 249, 231);
 }
 
 .hero::before {
@@ -86,6 +91,7 @@ nav a:hover {
 .hero-content {
   position: relative;
   z-index: 1;
+  
 }
 
 .hero h1 {
@@ -178,7 +184,9 @@ footer {
   padding: 2rem;
   margin-top: 2rem;
 }
-html, body {
+
+html,
+body {
   height: 100%;
 }
 
@@ -188,7 +196,7 @@ body {
 }
 
 .page-content {
-  flex: 1; /* Faz o conteúdo ocupar o espaço restante e empurrar o footer */
+  flex: 1;
 }
 
 .social-icons {
@@ -226,6 +234,7 @@ body {
   nav a {
     margin: 0.5rem 0;
   }
+
 
   .menu-toggle {
     display: flex;
@@ -269,4 +278,127 @@ li {
 
 .subtitle {
   font-size: px;
+}
+
+h1.error {
+  font-size: 120px;
+  color: black;
+  font-style: italic;
+}
+
+h2.Ops {
+  font-size: 28px;
+  color: black;
+}
+
+p.away {
+  font-size: 20px;
+  color: black;
+  font-style: italic;
+}
+
+body.pagerro {
+  background-color: var(--light);
+  color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-image: linear-gradient(to top, rgb(241, 235, 199), rgb(241, 238, 204) );
+
+}
+
+h1.cadastro {
+  font-size: 60px;
+  color: black;
+  font-style: italic;
+  padding-bottom: 20px;
+
+}
+
+.container {
+  background-image: linear-gradient(to right, #702082, #e10f8b);
+  width: 400px;
+  border-radius: 15px;
+  width: 450px;
+
+}
+
+.titulo {
+  font-style: italic;
+  margin-bottom: 30px;
+  font-size: 40px;
+}
+
+
+label {
+  display: grid;
+  height: 30px;
+  font-weight: bold;
+  font-size: 22px; 
+  margin-top: 20px;
+}
+
+input{
+  width: 300px;
+  height: 25px;
+}
+
+button {
+  margin-top: 15px;
+  background-image: linear-gradient(to top, #702082, #e10f8b);
+  border: none;
+  border-radius: 10px;
+  width: 120px; 
+  height: 25px; 
+  font-size: 15px; 
+  font-style: italic;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 15px;
+  background-image: linear-gradient(to top, #702082, #e10f8b);
+  border-radius: 10px;
+  width: 120px; 
+  height: 25px;
+  text-align: center;
+  font-size: 15px; 
+  font-style: italic;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+img.loca{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 25%;
+}
+
+.abaProjetos {
+    position: fixed;
+    right: -400px;
+    width: 300px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    color: white;
+    border-left: 1px solid white;
+    transition: right 0.4s ease;
+    padding: 20px;
+    z-index: 2;
+}
+
+.abaProjetos.ativa {
+    right: 0;
 }
