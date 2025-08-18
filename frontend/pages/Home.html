@@ -79,7 +79,7 @@
               queijo cheddar, tomates maduros e coberta com creme de leite
               fresco com baixo teor de gordura.
             </p>
-            <div class="price">$2.99</div>
+            <p id="chalupa-price" class="price">$2.99</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -111,7 +111,7 @@
               Batatas fritas temperadas cobertas com molho de queijo nacho
               quente e servidas com um acompanhamento de molho ranch picante
             </p>
-            <div class="price">$1.99</div>
+            <p id="nacho-price" class="price">$1.99</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -133,7 +133,7 @@
               chipotle, creme de leite com baixo teor de gordura, molho de
               queijo nacho e envolto em uma quesadilla.
             </p>
-            <div class="price">$3.49</div>
+            <p id="quesarito-price" class="price">$3.49</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -155,7 +155,7 @@
               Nosso sabor exclusivo Mountain Dew Baja Blast em formato de
               granizado congelado.
             </p>
-            <div class="price">$2.49</div>
+            <p id="baja-price" class="price">$2.49</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -173,7 +173,7 @@
           <div class="item-info">
             <h3>Cinnamon Twists</h3>
             <p>Torcidas leves e crocantes cobertas com açúcar e canela</p>
-            <div class="price">$1.49</div>
+            <p id="cinnamon-price" class="price">$1.49</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -197,6 +197,11 @@
 
     <script>
       const crunchwrap_price = document.getElementById("crunchwrap-price");
+      const quesarito_price = document.getElementById("quesarito-price");
+      const cinnamon_price = document.getElementById("cinnamon-price");
+      const chalupa_price = document.getElementById("chalupa-price");
+      const nacho_price = document.getElementById("nacho-price");
+      const baja_price = document.getElementById("baja-price");
 
       async function fetchData() {
         try {
@@ -220,7 +225,113 @@
           console.error("Falha no fetch:", err);
           crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
         }
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/chalupa",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          chalupa_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          chalupa_price.textContent = "Erro ao carregar o conteúdo.";
+        }
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/nacho",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          nacho_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          nacho_price.textContent = "Erro ao carregar o conteúdo.";
+        }
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/quesarito",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          quesarito_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          quesarito_price.textContent = "Erro ao carregar o conteúdo.";
+        }
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/baja",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          baja_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          baja_price.textContent = "Erro ao carregar o conteúdo.";
+        }
+        try {
+          const response = await fetch(
+            "http://172.17.9.54:3000/api/cinnamon",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}), // ok vazio
+            }
+          );
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+          cinnamon_price.textContent = data.mensagem;
+        } catch (err) {
+          console.error("Falha no fetch:", err);
+          cinnamon_price.textContent = "Erro ao carregar o conteúdo.";
+        }
       }
+
       fetchData();
 
       document
