@@ -220,6 +220,7 @@
           }
 
           const data = await response.json();
+          const price = parseFloat(data.mensagem);
           crunchwrap_price.textContent = data.mensagem;
         } catch (err) {
           console.error("Falha no fetch:", err);
@@ -457,30 +458,44 @@
         });
 
       function updateTotal() {
-        const cartContent = document.querySelector("#cartPanel .cart-content");
-        const items = cartContent.querySelectorAll(".cart-item");
-        let total = 0;
+  const cartContent = document.querySelector("#cartPanel .cart-content");
+  const items = cartContent.querySelectorAll(".cart-item");
+  let total = 0;
 
-        items.forEach((item) => {
-          const priceText = item.querySelector("span:nth-child(3)").textContent;
-          const price = parseFloat(priceText.replace("$", ""));
-          total += price;
-        });
+  items.forEach((item) => {
+    const priceText = item.querySelector("span:nth-child(3)").textContent.trim();
 
-        let totalElement = document.querySelector("#cart-total");
-        if (!totalElement) {
-          totalElement = document.createElement("div");
-          totalElement.id = "cart-total";
-          totalElement.style.fontWeight = "bold";
-          totalElement.style.marginTop = "10px";
-          cartContent.parentElement.insertBefore(
-            totalElement,
-            cartContent.nextSibling
-          );
-        }
+    // normalize string -> remove $ or R$, replace comma with dot
+    const normalized = priceText
+      .replace("R$", "")
+      .replace("$", "")
+      .replace(",", ".")
+      .trim();
 
-        totalElement.textContent = `Total: $${total.toFixed(2)}`;
-      }
+    const price = parseFloat(normalized);
+
+    if (!isNaN(price)) {
+      total += price;
+    } else {
+      console.warn("Invalid price:", priceText);
+    }
+  });
+
+  let totalElement = document.querySelector("#cart-total");
+  if (!totalElement) {
+    totalElement = document.createElement("div");
+    totalElement.id = "cart-total";
+    totalElement.style.fontWeight = "bold";
+    totalElement.style.marginTop = "10px";
+    cartContent.parentElement.insertBefore(totalElement, cartContent.nextSibling);
+  }
+
+  // Format in BRL
+  totalElement.textContent = `Total: ${total.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  })}`;
+}
 
       const originalAdd = add;
       add = function () {
