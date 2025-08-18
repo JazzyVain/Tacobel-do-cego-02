@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 // 1) CORS primeiro
-const allowed = ["http://127.0.0.1:3000", "http://localhost:3000"];
+const allowed = ["http://127.0.0.1:5501", "http://localhost:5501"];
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin) return cb(null, true);          // curl/Postman
