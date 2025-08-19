@@ -19,11 +19,11 @@
     <div class="menu-toggle" id="menuToggle">☰</div>
     <nav id="mainNav">
       <a href="#menu">Menu</a>
-      <a href="location.html">Locations</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="about.html">About</a>
+      <a href="location.html">Locais</a>
+      <a href="rewards.html">Bônus</a>
+      <a href="about.html">Sobre nós</a>
       <a href="login.html">Login</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact">Contatos</a>
       <a href="#" id="cartBtn"
         ><img
           class="scart"
@@ -399,21 +399,39 @@
 
       // --- fetch + inject into heroTexts ---
       async function loadHeroNacho() {
-        const url = "http://172.17.9.73:3000/api/nacho";
-        const res = await fetch(url);
-        if (!res.ok) {
-          const body = await res.text().catch(() => "");
-          throw new Error(`HTTP ${res.status} ${res.statusText} :: ${body}`);
+        try {
+          const response = await fetch("http://172.17.9.73:3000/api/nacho", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // send whatever payload your API expects
+          });
+
+          if (!response.ok) {
+            const body = await response.text();
+            throw new Error(`HTTP ${response.status} - ${body}`);
+          }
+
+          const data = await response.json();
+
+          // try to parse number from API string
+          const price = parseFloat(
+            String(data.mensagem)
+              .replace(/[^\d.,]/g, "")
+              .replace(",", ".")
+          );
+
+          const formatted = price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          });
+
+          heroTexts[1].title = `${formatted} Nacho Fries`;
+          renderHero(); // update the UI
+        } catch (err) {
+          console.error("Failed to fetch nacho price:", err);
+          heroTexts[1].title = "Preço indisponível";
+          renderHero();
         }
-        const data = await res.json();
-
-        const priceNumber = extractPrice(data);
-        const formatted = priceNumber.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        });
-
-        heroTexts[1].title = `${formatted} Nacho Fries`;
       }
 
       // --- minimal render (if you don’t already have one) ---
