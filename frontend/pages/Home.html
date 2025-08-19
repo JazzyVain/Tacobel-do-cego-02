@@ -34,9 +34,9 @@
 
     <section class="hero">
       <div class="hero-content">
-        <h1>New Crunchwrap Supreme</h1>
+        <h1>Novo Crunchwrap Supreme</h1>
         <p>Experimente nossa mais nova adição ao menu - repleta de sabor!</p>
-        <a href="#menu" class="btn">Order Now</a>
+        <a href="#menu" class="btn">Peça agora</a>
       </div>
     </section>
 
@@ -206,7 +206,7 @@
       async function fetchData() {
         try {
           const response = await fetch(
-            "http://172.17.9.54:3000/api/crunchwrap",
+            "http://172.17.9.73:3000/api/crunchwrap",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -227,14 +227,11 @@
           crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch(
-            "http://172.17.9.54:3000/api/chalupa",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://172.17.9.73:3000/api/chalupa", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -248,14 +245,11 @@
           chalupa_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch(
-            "http://172.17.9.54:3000/api/nacho",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://172.17.9.73:3000/api/nacho", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -270,7 +264,7 @@
         }
         try {
           const response = await fetch(
-            "http://172.17.9.54:3000/api/quesarito",
+            "http://172.17.9.73:3000/api/quesarito",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -290,14 +284,11 @@
           quesarito_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch(
-            "http://172.17.9.54:3000/api/baja",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://172.17.9.73:3000/api/baja", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -311,14 +302,11 @@
           baja_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch(
-            "http://172.17.9.54:3000/api/cinnamon",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://172.17.9.73:3000/api/cinnamon", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -349,16 +337,15 @@
         });
       });
 
+      // --- hero config (same as yours, keep it) ---
       const heroTexts = [
         {
           title: "New Crunchwrap Supreme",
           subtitle:
             "Experimente nossa mais nova adição ao menu - repleta de sabor!",
-          subtitle:
-            "Experimente nossa mais nova adição ao menu - repleta de sabor!",
         },
         {
-          title: "$10.000 Nacho Fries",
+          title: "", // will be filled by API
           subtitle: "Oferta de tempo limitado - aproveite enquanto duram!",
         },
         {
@@ -366,6 +353,80 @@
           subtitle: "Use o codigo FREEDRINK na finalização da compra",
         },
       ];
+
+      // --- helpers: parse any price the API might send ---
+      function coerceNumber(val) {
+        if (typeof val === "number") return val;
+        if (typeof val === "string") {
+          // strip any currency symbols/spaces; kill thousands '.'; turn ',' into '.'
+          const cleaned = val
+            .replace(/[^\d.,-]/g, "") // keep only digits, comma, dot, minus
+            .replace(/\.(?=\d{3}\b)/g, "") // drop thousands dots: 1.234 -> 1234
+            .replace(",", "."); // decimal comma -> dot
+          const n = Number(cleaned);
+          return Number.isNaN(n) ? null : n;
+        }
+        return null;
+      }
+
+      function extractPrice(obj) {
+        // try common keys first
+        const keys = ["mensagem", "message", "price", "valor", "amount"];
+        for (const k of keys) {
+          if (k in obj) {
+            const n = coerceNumber(obj[k]);
+            if (n != null) return n;
+          }
+        }
+        // fallback: find first numeric token anywhere in the payload
+        const m = JSON.stringify(obj).match(/-?\d+(?:[.,]\d+)?/);
+        if (m) {
+          const n = coerceNumber(m[0]);
+          if (n != null) return n;
+        }
+        throw new Error("No numeric price found in API payload");
+      }
+
+      // --- fetch + inject into heroTexts ---
+      async function loadHeroNacho() {
+        const url = "http://172.17.9.73:3000/api/nacho";
+        const res = await fetch(url);
+        if (!res.ok) {
+          const body = await res.text().catch(() => "");
+          throw new Error(`HTTP ${res.status} ${res.statusText} :: ${body}`);
+        }
+        const data = await res.json();
+
+        const priceNumber = extractPrice(data);
+        const formatted = priceNumber.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+
+        heroTexts[1].title = `${formatted} Nacho Fries`;
+      }
+
+      // --- minimal render (if you don’t already have one) ---
+      function renderHero() {
+        // Replace this with your actual rendering.
+        // Example: put the titles into elements with these IDs/data-attrs.
+        const el2 = document.querySelector('[data-hero="card-2-title"]');
+        const el2sub = document.querySelector('[data-hero="card-2-subtitle"]');
+
+        if (el2) el2.textContent = heroTexts[1].title;
+        if (el2sub) el2sub.textContent = heroTexts[1].subtitle;
+      }
+
+      // --- bootstrap ---
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          await loadHeroNacho();
+        } catch (e) {
+          console.error(e);
+          heroTexts[1].title = "Preço indisponível";
+        }
+        renderHero();
+      });
 
       let currentHeroIndex = 0;
       const heroTitle = document.querySelector(".hero h1");
@@ -458,44 +519,49 @@
         });
 
       function updateTotal() {
-  const cartContent = document.querySelector("#cartPanel .cart-content");
-  const items = cartContent.querySelectorAll(".cart-item");
-  let total = 0;
+        const cartContent = document.querySelector("#cartPanel .cart-content");
+        const items = cartContent.querySelectorAll(".cart-item");
+        let total = 0;
 
-  items.forEach((item) => {
-    const priceText = item.querySelector("span:nth-child(3)").textContent.trim();
+        items.forEach((item) => {
+          const priceText = item
+            .querySelector("span:nth-child(3)")
+            .textContent.trim();
 
-    // normalize string -> remove $ or R$, replace comma with dot
-    const normalized = priceText
-      .replace("R$", "")
-      .replace("$", "")
-      .replace(",", ".")
-      .trim();
+          // normalize string -> remove $ or R$, replace comma with dot
+          const normalized = priceText
+            .replace("R$", "")
+            .replace("$", "")
+            .replace(",", ".")
+            .trim();
 
-    const price = parseFloat(normalized);
+          const price = parseFloat(normalized);
 
-    if (!isNaN(price)) {
-      total += price;
-    } else {
-      console.warn("Invalid price:", priceText);
-    }
-  });
+          if (!isNaN(price)) {
+            total += price;
+          } else {
+            console.warn("Invalid price:", priceText);
+          }
+        });
 
-  let totalElement = document.querySelector("#cart-total");
-  if (!totalElement) {
-    totalElement = document.createElement("div");
-    totalElement.id = "cart-total";
-    totalElement.style.fontWeight = "bold";
-    totalElement.style.marginTop = "10px";
-    cartContent.parentElement.insertBefore(totalElement, cartContent.nextSibling);
-  }
+        let totalElement = document.querySelector("#cart-total");
+        if (!totalElement) {
+          totalElement = document.createElement("div");
+          totalElement.id = "cart-total";
+          totalElement.style.fontWeight = "bold";
+          totalElement.style.marginTop = "10px";
+          cartContent.parentElement.insertBefore(
+            totalElement,
+            cartContent.nextSibling
+          );
+        }
 
-  // Format in BRL
-  totalElement.textContent = `Total: ${total.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  })}`;
-}
+        // Format in BRL
+        totalElement.textContent = `Total: ${total.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}`;
+      }
 
       const originalAdd = add;
       add = function () {
