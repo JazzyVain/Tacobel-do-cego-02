@@ -198,7 +198,9 @@
       <div class="social-icons">
         <a href="#"><i class="fab fa-facebook"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.instagram.com/briel.pl/"
+          ><i class="fab fa-instagram"></i
+        ></a>
         <a href="#"><i class="fab fa-tiktok"></i></a>
       </div>
       <p class="footer">&copy; 2023 TacoBell. All rights reserved.</p>
@@ -215,14 +217,11 @@
 
       async function fetchData() {
         try {
-          const response = await fetch(
-            "http://172.17.9.73:3000/api/crunchwrap",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://localhost:3000/api/crunchwrap", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -237,7 +236,7 @@
           crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.73:3000/api/chalupa", {
+          const response = await fetch("http://localhost:3000/api/chalupa", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}), // ok vazio
@@ -255,7 +254,7 @@
           chalupa_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.73:3000/api/nacho", {
+          const response = await fetch("http://localhost:3000/api/nacho", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}), // ok vazio
@@ -273,14 +272,11 @@
           nacho_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch(
-            "http://172.17.9.73:3000/api/quesarito",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({}), // ok vazio
-            }
-          );
+          const response = await fetch("http://localhost:3000/api/quesarito", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}), // ok vazio
+          });
 
           if (!response.ok) {
             const body = await response.text();
@@ -294,7 +290,7 @@
           quesarito_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.73:3000/api/baja", {
+          const response = await fetch("http://localhost:3000/api/baja", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}), // ok vazio
@@ -312,7 +308,7 @@
           baja_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.73:3000/api/cinnamon", {
+          const response = await fetch("http://localhost:3000/api/cinnamon", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}), // ok vazio
@@ -400,7 +396,7 @@
       // --- fetch + inject into heroTexts ---
       async function loadHeroNacho() {
         try {
-          const response = await fetch("http://172.17.9.73:3000/api/nacho", {
+          const response = await fetch("http://localhost:3000/api/nacho", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}), // send whatever payload your API expects
@@ -472,13 +468,25 @@
         .getElementById("cartBtn")
         .addEventListener("click", function (e) {
           e.preventDefault();
-          document.getElementById("cartPanel").classList.add("active");
+          const cartPanel = document.getElementById("cartPanel");
+          const cartBtn = document.getElementById("cartBtn");
+
+          if (cartBtn.classList.contains("active")) {
+            // já está ativo → fechar
+            cartPanel.classList.remove("active");
+            cartBtn.classList.remove("active");
+          } else {
+            // não está ativo → abrir
+            cartPanel.classList.add("active");
+            cartBtn.classList.add("active");
+          }
         });
 
       document
         .getElementById("closeCart")
         .addEventListener("click", function () {
           document.getElementById("cartPanel").classList.remove("active");
+          document.getElementById("cartBtn").classList.remove("active");
         });
 
       function updateTotal() {
@@ -517,10 +525,12 @@
         const cartItem = document.createElement("div");
         cartItem.className = "cart-item";
         cartItem.innerHTML = `
-            <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
-            <span>${name}</span>
-            <span style="margin-left:auto;">${price}</span>
-            <button class="remove-cart-item" style="margin-left:10px;">Remover</button>
+        <div style="display:flex; align-items:center; gap:10px; width:100%;">
+          <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;border-radius: 5px;">
+          <span>${name}</span>
+          <span style="margin-left:auto;">${price}</span>
+          <button class="remove-cart-item">Remover</button>
+        </div>
           `;
         if (cartContent.textContent.includes("carrinho está vazio")) {
           cartContent.innerHTML = "";

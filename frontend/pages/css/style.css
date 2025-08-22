@@ -434,12 +434,35 @@ h2.cart {
   width: 25px;
   display: flex;
   height: 20px;
+  position: relative;
+  right: 1px;
+}
+
+#cartBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 15px;   /* distância da borda inferior */
+  right: 15px;    /* distância da borda direita */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--purple);
+  z-index: 1000;  /* garante que fique acima de outros elementos */ 
+  box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.281);
+  transition: right 0.3s ease;
+}
+
+#cartBtn.active {
+  right: 350px;
 }
 
 .cart-item {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: baseline;
+  margin-bottom: 10px;
 }
 
 .add-butão {
@@ -450,13 +473,12 @@ h2.cart {
   border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   position: relative;
 }
 
 .add-butão:hover {
-  background-color: white;
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .menu-item {
