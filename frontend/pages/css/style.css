@@ -478,7 +478,7 @@ h2.cart {
 }
 
 .add-butão:hover {
-  transform: scale(1.08);
+  transform: scale(1.25);
 }
 
 .menu-item {
@@ -517,7 +517,7 @@ button.compra {
 }
 
 .compra:hover {
-  background-color: white;
+  background-color: rgb(179, 255, 0);
 }
 
 .remove-cart-item {

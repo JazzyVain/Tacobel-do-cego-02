@@ -516,29 +516,50 @@
       }
 
       function add() {
-        const cartContent = document.querySelector("#cartPanel .cart-content");
-        const btn = event.target;
-        const item = btn.closest(".menu-item");
-        const name = item.querySelector("h3").textContent;
-        const price = item.querySelector(".price").textContent;
-        const imgSrc = item.querySelector("img").src;
-        const cartItem = document.createElement("div");
-        cartItem.className = "cart-item";
-        cartItem.innerHTML = `
-        <div style="display:flex; align-items:center; gap:10px; width:100%;">
-          <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;border-radius: 5px;">
-          <span>${name}</span>
-          <span style="margin-left:auto;">${price}</span>
-          <button class="remove-cart-item">Remover</button>
-        </div>
-          `;
-        if (cartContent.textContent.includes("carrinho está vazio")) {
-          cartContent.innerHTML = "";
-        }
-        cartContent.appendChild(cartItem);
+  const cartContent = document.querySelector("#cartPanel .cart-content");
+  const btn = event.target;
+  const item = btn.closest(".menu-item");
+  const name = item.querySelector("h3").textContent;
+  const price = item.querySelector(".price").textContent;
+  const imgSrc = item.querySelector("img").src;
 
-        updateTotal();
-      }
+  const cartItem = document.createElement("div");
+  cartItem.className = "cart-item";
+  cartItem.innerHTML = `
+    <div style="display:flex;align-items:center;width:100%;">
+      <img src="${imgSrc}" alt="${name}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
+      <span>${name}</span>
+      <span style="margin-left:auto;">${price}</span>
+      <button class="remove-cart-item" style="margin-left:10px;">Remover</button>
+    </div>
+  `;
+
+  if (cartContent.textContent.includes("carrinho está vazio")) {
+    cartContent.innerHTML = "";
+  }
+
+  cartContent.appendChild(cartItem);
+
+  updateTotal();
+  saveCart(); // <- salva sempre que adiciona
+}
+
+function saveCart() {
+  const cartContent = document.querySelector("#cartPanel .cart-content");
+  sessionStorage.setItem("cart", cartContent.innerHTML);
+}
+
+function loadCart() {
+  const cartContent = document.querySelector("#cartPanel .cart-content");
+  const saved = sessionStorage.getItem("cart");
+  if (saved) {
+    cartContent.innerHTML = saved;
+  }
+}
+
+// carregar ao abrir página
+window.onload = loadCart;
+
 
       document
         .querySelector("#cartPanel .cart-content")
