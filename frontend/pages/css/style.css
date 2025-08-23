@@ -534,3 +534,12 @@ button.compra {
   padding: 5px;
   border-radius: 40px;
 }
+
+ul {
+  list-style: disc inside;
+  padding-left: 0;
+}
+
+ul li {
+  margin: 6px 0; /* dá um espacinho entre os itens */
+}
