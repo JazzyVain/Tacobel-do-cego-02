@@ -57,7 +57,7 @@
               tomates maduros e coberta com creme de leite fresco com baixo teor
               de gordura.
             </p>
-            <p id="crunchwrap-price" class="price">texto</p>
+            <p id="crunchwrap-price" class="price">Preço</p>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
                 Adicionar no carrinho
@@ -80,7 +80,7 @@
               fresco com baixo teor de gordura.
             </p>
             <div>
-              <p id="chalupa-price" class="price">$2.99</p>
+              <p id="chalupa-price" class="price">Preço</p>
             </div>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
@@ -114,7 +114,7 @@
               quente e servidas com um acompanhamento de molho ranch picante
             </p>
             <div>
-              <p id="nacho-price" class="price">$1.99</p>
+              <p id="nacho-price" class="price">Preço</p>
             </div>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
@@ -138,7 +138,7 @@
               queijo nacho e envolto em uma quesadilla.
             </p>
             <div>
-              <p id="quesarito-price" class="price">$3.49</p>
+              <p id="quesarito-price" class="price">Preço</p>
             </div>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
@@ -162,7 +162,7 @@
               granizado congelado.
             </p>
             <div>
-              <p id="baja-price" class="price">$2.49</p>
+              <p id="baja-price" class="price">Preço</p>
             </div>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
@@ -182,7 +182,7 @@
             <h3>Cinnamon Twists</h3>
             <p>Torcidas leves e crocantes cobertas com açúcar e canela</p>
             <div>
-              <p id="cinnamon-price" class="price">$1.49</p>
+              <p id="cinnamon-price" class="price">Preço</p>
             </div>
             <div class="addcart">
               <button class="add-butão" onclick="add()">
@@ -218,9 +218,8 @@
       async function fetchData() {
         try {
           const response = await fetch("http://localhost:3000/api/crunchwrap", {
-            method: "POST",
+            method: "GET",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({}), // ok vazio
           });
 
           if (!response.ok) {
@@ -229,17 +228,16 @@
           }
 
           const data = await response.json();
-          const price = parseFloat(data.mensagem);
-          crunchwrap_price.textContent = data.mensagem;
+          const price = parseFloat(data.preco);
+          crunchwrap_price.textContent = data.preco;
         } catch (err) {
           console.error("Falha no fetch:", err);
           crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
           const response = await fetch("http://localhost:3000/api/chalupa", {
-            method: "POST",
+            method: "GET",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({}), // ok vazio
           });
 
           if (!response.ok) {
@@ -248,7 +246,7 @@
           }
 
           const data = await response.json();
-          chalupa_price.textContent = data.mensagem;
+          chalupa_price.textContent = data.preco;
         } catch (err) {
           console.error("Falha no fetch:", err);
           chalupa_price.textContent = "Erro ao carregar o conteúdo.";
