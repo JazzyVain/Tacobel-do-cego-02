@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/frontend/pages/css/style.css" />
+    <link rel="stylesheet" href="/frontend/pages/css/style-login.css" />
 
     <link
       rel="icon"
@@ -12,31 +12,30 @@
       href="./assets/images/favicon-32x32.png"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="animations.css" />
     <title>Frontend Mentor | Contact form</title>
-    <script src="brain.js"></script>
   </head>
   <body class="pagerro">
+    <div id="voltar">
+      <a href="Home.html"><img src="/frontend/imagens/arrow-sm-left-svgrepo-com.svg" alt="casinha" style="width: 40px; height: 40px; position: fixed; left: -1px; top: -2px;"></a>
+    </div>
     <section class="container">
       <h1 class="titulo">Login</h1>
       <div class="username">
         <label class="label" for="username">Nome usuario</label>
-        <input id="username" type="text" required />
+        <input id="username" type="text" placeholder="nome" required />
       </div>
       <div class="email">
         <label class="label" for="email">E-mail usuario</label>
-        <input id="email" type="email" required />
+        <input id="email" type="email" placeholder="e-mail" required />
       </div>
       <div class="Senha">
         <label class="label" for="Senha">Senha</label>
-        <input id="Senha" type="password" required />
+        <input id="Senha" type="password" placeholder="senha" required />
       </div>
       <div>
-        <a class="button">login</a>
-        <br>
-        <a class="button" href="cadastro.html">Criar nova conta</a>
+        <a class="button">Login</a>
         <br />
-        <a class="button" href="Home.html">Home</a>
+        <a class="button" href="cadastro.html">Criar nova conta</a>
       </div>
     </section>
   </body>

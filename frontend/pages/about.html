@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About – Tacobel do Cego</title>
+    <title>Sobre – Tacobel do Cego</title>
     <link rel="stylesheet" href="/frontend/pages/css/style.css" />
-         <link
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
@@ -19,45 +19,72 @@
     <div class="menu-toggle" id="menuToggle">☰</div>
     <nav id="mainNav">
       <a href="Home.html">Home</a>
-      <a href="location.html">Locations</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="about.html">About</a>
+      <a href="location.html">Locais</a>
+      <a href="rewards.html">Bônus</a>
+      <a href="about.html">Sobre nós</a>
+      <a href="login.html">Login</a>
+      <a href="#contact">Contatos</a>
     </nav>
     
     <section class="page-content">
-      <h2>About Us</h2>
+      <h2>Quem Somos</h2>
       <p>
-        Na Tacobel do Cego, nossa missão é simples: <br> transformar cada refeição em
-        uma experiência inesquecível. <br> Fundada em 2022, unimos sabor,
-        criatividade e acessibilidade <br> para levar o verdadeiro espírito “Live
-        Más” a você.
+        A Tacobel do Cego nasceu de um sonho inusitado: provar que a visão mais poderosa 
+        não está nos olhos, mas no coração e no paladar. Em 2022, um grupo de amigos se 
+        uniu em São Paulo com a missão de transformar cada refeição em uma celebração de vida.
       </p>
-      <p class="subtitle">Nossos valores:</p>
+      <p>
+        Inspirados pela filosofia <em>“Live Más”</em>, criamos um espaço onde cada taco, burrito e quesadilla
+        é mais do que comida — é uma experiência, um convite a viver intensamente e saborear cada momento.
+      </p>
+
+      <h3>Nossa História</h3>
+      <p>
+        Tudo começou com <strong>João “o Cego”</strong>, um chef autodidata que, mesmo sem a visão tradicional, 
+        enxergava o mundo através dos sabores. Seu talento incomparável para equilibrar temperos e criar 
+        combinações únicas logo chamou atenção. João acreditava que a comida tinha o poder de unir pessoas 
+        e contar histórias. A Tacobel do Cego nasceu desse espírito: um lugar acessível, inclusivo e apaixonado por sabor.
+      </p>
+      <p>
+        Em pouco tempo, viramos referência de autenticidade, unindo a energia do México, a criatividade do Brasil 
+        e a ousadia de quem não aceita limites. Hoje, cada cliente que nos visita se torna parte dessa jornada.
+      </p>
+
+      <h3>Nossos Valores</h3>
       <ul>
-        <li>
-          <strong>Qualidade acima de tudo</strong> — ingredientes frescos,
-          preparados com carinho.
-        </li>
-        <li>
-          <strong>Acessibilidade</strong> — sabores incríveis sem pesar no
-          bolso.
-        </li>
-        <li>
-          <strong>Comunidade</strong> — orgulho de servir o Brasil com respeito
-          e sabor.
-        </li>
+        <li><strong>Qualidade acima de tudo</strong> - só usamos ingredientes frescos, preparados todos os dias.</li>
+        <li><strong>Acessibilidade</strong> - sabor de alto nível a um preço que cabe no bolso.</li>
+        <li><strong>Comunidade</strong> - orgulho de servir e apoiar a cultura local em cada bairro que chegamos.</li>
+        <li><strong>Inclusão</strong> - acreditamos que todos merecem sentar à mesa, sem barreiras.</li>
+        <li><strong>Coragem e Criatividade</strong> - ousamos misturar, testar e surpreender sempre.</li>
       </ul>
-      <p>Venha nos conhecer e viva a experiência Tacobel!</p>
+
+      <h3>Nosso Legado</h3>
+      <p>
+        Cada loja da Tacobel do Cego carrega símbolos da nossa origem: murais coloridos,
+        frases inspiradoras e pratos que homenageiam João e sua visão única do mundo.
+        Não é apenas sobre comer tacos — é sobre viver mais, rir mais, compartilhar mais.
+      </p>
+      <p>
+        Seja você um cliente de primeira viagem ou um fã de longa data, ao entrar na Tacobel do Cego
+        você entra em uma família que acredita que <strong>a vida é muito curta para refeições sem graça</strong>.
+      </p>
+
+      <blockquote>
+        “A visão pode estar nos olhos, mas o sabor é o que realmente guia a vida.” — João, O Cego
+      </blockquote>
+
+      <p><strong>Venha nos conhecer e viva a experiência Tacobel!</strong></p>
     </section>
 
     <footer id="contact">
       <div class="social-icons">
         <a href="#"><i class="fab fa-facebook"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.instagram.com/briel.pl/"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-tiktok"></i></a>
       </div>
-      <p class="footer">&copy; 2023 TacoBell. All rights reserved.</p>
+      <p class="footer">&copy; 2023 Tacobel do Cego. Todos os direitos reservados.</p>
       <p class="footer">Viva mais</p>
     </footer>
 
@@ -69,7 +96,7 @@
         });
 
       document.addEventListener("DOMContentLoaded", function () {
-        const menuItems = document.querySelectorAll(".menu-item");
+        const menuItems = document.querySelectorAll("nav a");
 
         menuItems.forEach((item, index) => {
           item.style.transitionDelay = `${index * 0.1}s`;
