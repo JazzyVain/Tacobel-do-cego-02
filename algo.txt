@@ -1,0 +1,5 @@
+Access to fetch at 'http://localhost:3000/api/cadastro' from origin 'http://172.17.9.182:5500' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+cadastro.html:44  POST http://localhost:3000/api/cadastro net::ERR_FAILED
+(anonymous) @ cadastro.html:44Understand this error
+cadastro.html:44   Uncaught (in promise) TypeError: Failed to fetch
+    at HTMLAnchorElement.<anonymous> (cadastro.html:44:24)
