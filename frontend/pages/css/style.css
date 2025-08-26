@@ -542,6 +542,16 @@ ul {
 }
 
 ul li {
-  margin: 6px 0; /* dá um espacinho entre os itens */
+  margin: 6px 0;
 }
 
+a.perfil {
+  position: absolute;
+  background-image: url("/frontend/imagens/perfil-Photoroom (1).png");
+  background-size: contain;
+  top: 15px;
+  right: 15px;
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
+}
