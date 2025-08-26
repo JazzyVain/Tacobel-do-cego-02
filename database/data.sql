@@ -10,7 +10,8 @@ CREATE TABLE produtos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome_produto VARCHAR(150) NOT NULL,
   descricao TEXT,
-  preco DECIMAL(10,2) NOT NULL,
+  preco varchar(9) NOT NULL,
   categoria VARCHAR(50),
   disponivel BOOLEAN DEFAULT TRUE
 );
+

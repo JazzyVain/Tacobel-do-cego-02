@@ -471,6 +471,7 @@ h2.cart {
   color: var(--dark);
   padding: 0.8rem 1.5rem;
   border-radius: 25px;
+  border: solid black 2px;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.5s ease;
@@ -504,7 +505,7 @@ h2.cart {
 
 button.compra {
   display: inline-block;
-  background-color: var(--yellow);
+  background-color: rgb(255, 187, 0);
   color: var(--dark);
   padding: 0.8rem 1.5rem;
   text-decoration: none;
@@ -517,7 +518,7 @@ button.compra {
 }
 
 .compra:hover {
-  background-color: rgb(179, 255, 0);
+  background-color: yellowgreen;
 }
 
 .remove-cart-item {

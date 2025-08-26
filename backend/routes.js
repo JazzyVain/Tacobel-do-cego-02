@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const db = require("./db")
 require("dotenv").config();
 
 const router = express.Router();  
@@ -13,13 +14,23 @@ router.post('/response', (req, res) => {
   res.json({mensagem: 'Algo'})
 })
 
-router.post('/crunchwrap', (req, res) => {
-  res.json({mensagem: 'R$11,99'})
-})
+router.get("/crunchwrap", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT preco from produtos where id = 1");
+    res.json(rows[0]); // retorna JSON
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-router.post('/chalupa', (req, res) => {
-  res.json({mensagem: 'R$16,45'})
-})
+router.get("/chalupa", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT preco from produtos where id = 2");
+    res.json(rows[0]); // retorna JSON
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 router.post('/nacho', (req, res) => {
   res.json({mensagem: 'R$10,95'})
