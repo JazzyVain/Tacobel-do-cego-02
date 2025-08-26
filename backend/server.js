@@ -8,24 +8,20 @@ const port = 3000;
 
 // 1) CORS primeiro
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true);     // curl/Postman
-    return cb(null, true);                  // allow everything
-  },
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"]
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 // responde preflight
 app.options("/{*any}", cors());
 
 // Middleware para servir arquivos estáticos da pasta "public"
 app.use(
-  express.static("pagina", {
+  express.static("../frontend/pages", {
     // Opções para melhor conformidade com RFC HTTP:
     dotfiles: "ignore", // Ignora arquivos ocultos (.htaccess, .env)
     etag: true, // Usa ETags para caching (RFC 7232)
-    extensions: ["html"], // Tenta adicionar .html se o arquivo não tiver extensão
-    index: "/index.html", // Retorna index.html para diretórios
+    index: "/Home.html", // Retorna index.html para diretórios
     lastModified: true, // Envia Last-Modified header (RFC 7232)
     maxAge: "1h", // Cache-Control: max-age=3600 (RFC 9111)
     redirect: true, // Redireciona /dir para /dir/
@@ -38,8 +34,6 @@ app.use(express.json());
 // 3) Só depois monte as rotas
 app.use("/api", routes);
 
-app.listen(port, () => {
-  console.log(`API em http://localhost:${port}`);
-});
+app.listen(3000, "172.17.9.152", () => console.log("API rodando em 172.17.9.152:3000"));
 
 //sempre colocar connection.end();
