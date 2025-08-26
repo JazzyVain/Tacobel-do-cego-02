@@ -62,7 +62,7 @@ nav a:hover {
 }
 
 .hero {
-  background-image: url("/frontend/pages/imagens/Imagem\ de\ fundo\ 02.png");
+  background-image: url("/");
   background-size: cover;
   background-position: center;
   height: 400px;
