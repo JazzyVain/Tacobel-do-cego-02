@@ -17,7 +17,7 @@ app.options("/{*any}", cors());
 
 // Middleware para servir arquivos estáticos da pasta "public"
 app.use(
-  express.static("../frontend/pages", {
+  express.static("../frontend/pages/", {
     // Opções para melhor conformidade com RFC HTTP:
     dotfiles: "ignore", // Ignora arquivos ocultos (.htaccess, .env)
     etag: true, // Usa ETags para caching (RFC 7232)
