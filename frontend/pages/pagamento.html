@@ -18,20 +18,17 @@
 <ul id="lista-pedido"></ul>
 <p><strong>Total: R$ <span id="total-pedido">0,00</span></strong></p>
 </div>
-
-
-<div class="pagamento-form">
 <h2>Método de Pagamento</h2>
+<div class="pagamento-form">
 <form id="form-pagamento">
-<label>Cartão
-<input type="radio" name="metodo" value="cartao" required />
-</label>
-<label>Pix
-<input type="radio" name="metodo" value="pix" />
-</label>
-<label>Dinheiro
-<input type="radio" name="metodo" value="dinheiro" />
-</label>
+<label id="cartao ">Cartão</label >
+<label id="pix" >Pix</label>
+<label id="dinheiro" >Dinheiro</label>
+<input id="in1" type="radio" name="metodo" value="cartao" required />
+ <input id="in2" type="radio" name="metodo" value="pix" />
+  <input id="in3" type="radio" name="metodo" value="dinheiro" />
+</div>
+
 
 
 <div id="dados-cartao" class="metodo-info hidden">
