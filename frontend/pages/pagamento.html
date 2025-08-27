@@ -1,0 +1,105 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pagamento - TacoBel do Cego</title>
+<link rel="stylesheet" href="css/style-pagamento.css" />
+</head>
+<body>
+    <div id="voltar">
+      <a href="Home.html"><img src="imagens/arrow-sm-left-svgrepo-com.svg" alt="casinha" style="width: 40px; height: 40px; position: fixed; left: -1px; top: -2px;"></a>
+    </div>
+<div class="container">
+<h1>Finalizar Pagamento</h1>
+
+
+<div class="pedido-resumo">
+<h2>Resumo do Pedido</h2>
+<ul id="lista-pedido"></ul>
+<p><strong>Total: R$ <span id="total-pedido">0,00</span></strong></p>
+</div>
+
+
+<div class="pagamento-form">
+<h2>Método de Pagamento</h2>
+<form id="form-pagamento">
+<label>Cartão
+<input type="radio" name="metodo" value="cartao" required />
+</label>
+<label>Pix
+<input type="radio" name="metodo" value="pix" />
+</label>
+<label>Dinheiro
+<input type="radio" name="metodo" value="dinheiro" />
+</label>
+
+
+<div id="dados-cartao" class="metodo-info hidden">
+<input type="text" placeholder="Número do Cartão" maxlength="19" required />
+<input type="text" placeholder="Validade (MM/AA)" maxlength="5" required />
+<input type="text" placeholder="CVV" maxlength="3" required />
+</div>
+
+
+<div id="dados-pix" class="metodo-info hidden">
+<p>Escaneie o QR Code ou use a chave PIX:</p>
+<img src="qrcode.png" alt="QR Code PIX" class="qrcode" />
+<p class="pix-chave">tacobel@pix.com</p>
+</div>
+
+
+<div id="dados-dinheiro" class="metodo-info hidden">
+<input type="number" placeholder="Troco para quanto?" min="0" />
+</div>
+
+
+<button type="submit">Confirmar Pagamento</button>
+</form>
+</div>
+</div>
+
+
+<script>
+const listaPedido = document.getElementById("lista-pedido");
+const totalPedido = document.getElementById("total-pedido");
+const pedido = JSON.parse(sessionStorage.getItem("pedido")) || [];
+let total = 0;
+
+
+pedido.forEach(item => {
+const li = document.createElement("li");
+li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+listaPedido.appendChild(li);
+total += item.preco;
+});
+totalPedido.textContent = total.toFixed(2);
+
+
+const radios = document.querySelectorAll("input[name='metodo']");
+const cartao = document.getElementById("dados-cartao");
+const pix = document.getElementById("dados-pix");
+const dinheiro = document.getElementById("dados-dinheiro");
+
+
+radios.forEach(radio => {
+radio.addEventListener("change", () => {
+cartao.classList.add("hidden");
+pix.classList.add("hidden");
+dinheiro.classList.add("hidden");
+
+
+if (radio.value === "cartao") cartao.classList.remove("hidden");
+if (radio.value === "pix") pix.classList.remove("hidden");
+if (radio.value === "dinheiro") dinheiro.classList.remove("hidden");
+});
+});
+
+
+document.getElementById("form-pagamento").addEventListener("submit", e => {
+e.preventDefault();
+alert("Pagamento confirmado! Obrigado pela preferência.");
+sessionStorage.removeItem("pedido");
+window.location.href = "index.html";
+});
+</script>
+</html>

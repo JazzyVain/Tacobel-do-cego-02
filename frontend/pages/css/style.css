@@ -512,9 +512,10 @@ button.compra {
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
-  border: none;
-  border-top: solid gray 2px;
+  border: solid gray 2px;
   width: auto;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .compra:hover {
@@ -555,3 +556,4 @@ a.perfil {
   height: 55px;
   border-radius: 100%;
 }
+
