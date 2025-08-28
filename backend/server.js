@@ -34,6 +34,6 @@ app.use(express.json());
 // 3) Só depois monte as rotas
 app.use("/api", routes);
 
-app.listen(3000, "172.17.9.152", () => console.log("API rodando em 172.17.9.152:3000"));
+app.listen(3000, "172.17.9.208", () => console.log("API rodando em 172.17.9.208:3000"));
 
 //sempre colocar connection.end();

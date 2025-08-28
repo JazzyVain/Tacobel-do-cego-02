@@ -218,7 +218,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/crunchwrap", {
+          const response = await fetch("http://172.17.9.208:3000/api/crunchwrap", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -236,7 +236,7 @@
           crunchwrap_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/chalupa", {
+          const response = await fetch("http://172.17.9.208:3000/api/chalupa", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -253,7 +253,7 @@
           chalupa_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/nacho", {
+          const response = await fetch("http://172.17.9.208:3000/api/nacho", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -270,7 +270,7 @@
           nacho_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/quesarito", {
+          const response = await fetch("http://172.17.9.208:3000/api/quesarito", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -287,7 +287,7 @@
           quesarito_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/baja", {
+          const response = await fetch("http://172.17.9.208:3000/api/baja", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -304,7 +304,7 @@
           baja_price.textContent = "Erro ao carregar o conteúdo.";
         }
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/cinnamon", {
+          const response = await fetch("http://172.17.9.208:3000/api/cinnamon", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
@@ -391,7 +391,7 @@
       // --- fetch + inject into heroTexts ---
       async function loadHeroNacho() {
         try {
-          const response = await fetch("http://172.17.9.152:3000/api/nacho", {
+          const response = await fetch("http://172.17.9.208:3000/api/nacho", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });

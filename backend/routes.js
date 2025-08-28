@@ -72,19 +72,64 @@ router.get("/cinnamon", async (req, res) => {
 router.post("/cadastro", async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  if (!nome || !email || !senha) return res.status(400).json({ erro: "Campos obrigatórios" });
+  if (!nome || !email || !senha) {
+    return res.status(400).json({ erro: "Campos obrigatórios" });
+  }
 
   try {
+    // 1. Verifica se já existe
+    const [rows] = await db.query(
+      "SELECT id FROM usuarios WHERE nome = ? OR email = ?",
+      [nome, email]
+    );
+
+    if (rows.length > 0) {
+      return res.status(409).json({ erro: "Nome de usuário ou email já cadastrado" });
+    }
+
+    // 2. Se não existir, insere
     const hash = await bcrypt.hash(senha, 10);
-    await db.query("INSERT INTO usuarios (nome, email, senha_hash) VALUES (?,?,?)", [
-      nome,
-      email,
-      hash
-    ]);
+    await db.query(
+      "INSERT INTO usuarios (nome, email, senha_hash) VALUES (?,?,?)",
+      [nome, email, hash]
+    );
+
     res.json({ sucesso: true });
   } catch (err) {
     console.error(err);
     res.status(500).json({ erro: "Erro ao salvar usuário" });
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const { username, senha } = req.body;
+  if (!username || !senha) {
+    return res.status(400).json({ erro: "Campos obrigatórios" });
+  }
+
+  try {
+    // Pode ser nome OU email
+    const [rows] = await db.query(
+      "SELECT * FROM usuarios WHERE nome = ? OR email = ? LIMIT 1",
+      [username, username]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ erro: "Usuário não encontrado" });
+    }
+
+    const user = rows[0];
+    const ok = await bcrypt.compare(senha, user.senha_hash);
+
+    if (!ok) {
+      return res.status(401).json({ erro: "Senha incorreta" });
+    }
+
+    // Aqui poderia gerar token JWT, mas se só precisa redirecionar:
+    res.json({ sucesso: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: "Erro interno" });
   }
 });
 
