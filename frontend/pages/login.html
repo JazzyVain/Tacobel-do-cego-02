@@ -14,23 +14,71 @@
   </head>
   <body class="pagerro">
     <div id="voltar">
-      <a href="Home.html"><img src="imagens/arrow-sm-left-svgrepo-com.svg" alt="casinha" style="width: 40px; height: 40px; position: fixed; left: -1px; top: -2px;"></a>
+      <a href="Home.html"
+        ><img
+          src="imagens/arrow-sm-left-svgrepo-com.svg"
+          alt="casinha"
+          style="
+            width: 40px;
+            height: 40px;
+            position: fixed;
+            left: -1px;
+            top: -2px;
+          "
+      /></a>
     </div>
     <section class="container">
       <h1 class="titulo">Login</h1>
       <div class="username">
         <label class="label" for="username">Nome usuario ou E-mail</label>
-        <input id="username" type="text" placeholder="nome" required, id="email" type="email" placeholder="e-mail" required />
+        <input
+          id="username"
+          type="text"
+          placeholder="nome"
+          required,
+          id="email"
+          type="email"
+          placeholder="e-mail"
+          required
+        />
       </div>
       <div class="Senha">
         <label class="label" for="Senha">Senha</label>
         <input id="Senha" type="password" placeholder="senha" required />
       </div>
       <div>
-        <a class="button">Login</a>
+        <a class="button" id="btnLogin">Login</a>
         <br />
         <a class="button" href="cadastro.html">Criar nova conta</a>
       </div>
     </section>
+    <script>
+      document
+        .getElementById("btnLogin")
+        .addEventListener("click", async () => {
+          const username = document.getElementById("username").value;
+          const senha = document.getElementById("Senha").value;
+
+          try {
+            const resp = await fetch("http://172.17.9.208:3000/api/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, senha }),
+            });
+
+            const dados = await resp.json();
+
+            if (resp.ok && dados.sucesso) {
+              // redireciona
+              window.location.href = "Home.html";
+            } else {
+              alert(dados.erro || "Erro no login");
+            }
+          } catch (err) {
+            alert("Falha ao conectar com o servidor");
+            console.error(err);
+          }
+        });
+    </script>
   </body>
 </html>

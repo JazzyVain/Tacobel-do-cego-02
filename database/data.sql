@@ -1,6 +1,6 @@
 create table usuarios (
   id int auto_increment primary key,
-  nome varchar(100) not null,
+  nome varchar(100) not null unique,
   email varchar(150) not null unique,
   senha_hash varchar(255) not null,
   role ENUM('admin', 'usuario') DEFAULT 'usuario'
