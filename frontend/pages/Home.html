@@ -405,7 +405,7 @@
 
           // try to parse number from API string
           const price = parseFloat(
-            String(data.mensagem)
+            String(data.preco)
               .replace(/[^\d.,]/g, "")
               .replace(",", ".")
           );
@@ -415,7 +415,7 @@
             currency: "BRL",
           });
 
-          heroTexts[1].title = `${formatted} Nacho Fries`;
+          heroTexts[1].title = `${price} Nacho Fries`;
           renderHero(); // update the UI
         } catch (err) {
           console.error("Failed to fetch nacho price:", err);
