@@ -410,12 +410,7 @@
               .replace(",", ".")
           );
 
-          const formatted = price.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          });
-
-          heroTexts[1].title = `${price} Nacho Fries`;
+          heroTexts[1].title = `R$${price} Nacho Fries`;
           renderHero(); // update the UI
         } catch (err) {
           console.error("Failed to fetch nacho price:", err);

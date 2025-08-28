@@ -546,10 +546,9 @@ ul li {
   margin: 6px 0;
 }
 
-a.perfil {
+.perfil {
   position: absolute;
-  background-image: url("/imagens/perfi.png");
-  background-size: contain;
+  background-image: url("/imagens/perfil.png");
   top: 15px;
   right: 15px;
   width: 55px;
