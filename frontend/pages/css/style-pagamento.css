@@ -72,16 +72,16 @@ place-items: center;
 }
 
 #in1 {
-    grid-column: 2 / 3;
+    grid-column: 3 / 4;
     grid-row: 1;
 }
 
 #in2 {
-    grid-column: 2 / 3;
+    grid-column: 3 / 4;
     grid-row: 2;
 }
 #in3 {
-    grid-column: 2 / 3;
+    grid-column: 3 / 4;
     grid-row: 3;
 }
 
